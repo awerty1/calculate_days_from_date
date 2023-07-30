@@ -49,6 +49,7 @@ if __name__ == '__main__':
     if result_date is not None:
         days_passed = count_days(start_date_str)
         if days_passed is not None:
+            print(f"You have chosen a date: {Fore.GREEN}{start_date_str}{Fore.RESET}")
             print(f"Next payment date {Fore.RED}{result_date}{Fore.RESET}, "
                   f"{Fore.RED}{days_passed}{Fore.RESET} days have passed!")
             print(f"Don't forget to pay, otherwise you'll become poorer")
