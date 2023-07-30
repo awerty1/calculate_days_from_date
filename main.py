@@ -3,32 +3,39 @@ from datetime import date, timedelta
 from colorama import Fore
 
 
-def count_days(start_date):
-    today = date.today()
-
+def validate_date(date_str):
     try:
-        start_date = date.fromisoformat(start_date)
+        # Converting a date string into a date object
+        return date.fromisoformat(date_str)
     except ValueError:
-        print(f"{Fore.RED}Invalid start date format. Please provide a date in the format 'YYYY-MM-DD'{Fore.RESET}")
+        print(f"{Fore.RED}Invalid date format: {Fore.BLUE}{date_str}{Fore.RESET}. "
+              f"{Fore.RED}Please provide a date in the format '{Fore.BLUE}YYYY-MM-DD{Fore.RED}'{Fore.RESET}")
+        return None
+
+
+def count_days(start_date_str):
+    today = date.today()
+    start_date = validate_date(start_date_str)
+
+    if not start_date:
         return None
 
     delta = today - start_date
     return delta.days
 
 
-def add_days(start_date, days_to_add):
-    try:
-        # Converting a date string into a date object
-        start_date = date.fromisoformat(start_date)
-    except ValueError:
-        print(f"{Fore.RED}Invalid start date format. Please provide a date in the format 'YYYY-MM-DD'{Fore.RESET}")
+def add_days(start_date_str, days_to_add):
+    start_date = validate_date(start_date_str)
+
+    if not start_date:
         return None
 
     try:
         # Adding the specified number of days to the initial date
         new_date = start_date + timedelta(days=days_to_add)
     except OverflowError:
-        print(f"{Fore.RED}The result exceeds the maximum or minimum date value that can be represented{Fore.RESET}")
+        print(f"{Fore.RED}The result exceeds the maximum or minimum date value that can be represented "
+              f"{Fore.BLUE}{start_date}{Fore.RESET}")
         return None
 
     # Converting the new date to a string and returning the result
@@ -53,6 +60,3 @@ if __name__ == '__main__':
             print(f"Next payment date {Fore.RED}{result_date}{Fore.RESET}, "
                   f"{Fore.RED}{days_passed}{Fore.RESET} days have passed!")
             print(f"Don't forget to pay, otherwise you'll become poorer")
-
-
-
