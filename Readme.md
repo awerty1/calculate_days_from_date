@@ -13,6 +13,7 @@ P.S.: Also, you can uncomment the lines and enter `start_date_str` and `num_days
 
 ## Program example
 ```
+You have chosen a date: 2023-07-30
 Next payment date 2023-10-28, 0 days have passed!
 Don't forget to pay, otherwise you'll become poorer
 ```
