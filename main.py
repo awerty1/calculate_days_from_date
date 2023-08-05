@@ -8,7 +8,7 @@ def validate_date(date_str):
         # Converting a date string into a date object
         return date.fromisoformat(date_str)
     except ValueError:
-        print(f"{Fore.RED}Invalid date format: {Fore.BLUE}{date_str}{Fore.RESET}. "
+        print(f"{Fore.RED}Invalid date format: {Fore.BLUE}{date_str}{Fore.RED}.{Fore.RESET} "
               f"{Fore.RED}Please provide a date in the format '{Fore.BLUE}YYYY-MM-DD{Fore.RED}'{Fore.RESET}")
         return None
 
@@ -64,17 +64,26 @@ if __name__ == '__main__':
 
     result_dates = add_days(start_dates, num_days_list)
     if result_dates is not None:
-        for start_date_str, result_date, titles in zip(start_dates, result_dates, titles):
+        for start_date_str, result_date, num_day, title in zip(start_dates, result_dates, num_days_list, titles):
             days_passed = count_days(start_date_str)
+            days_remaining = num_day - days_passed
             # algorithm for count #
-            length = len(titles)+2
+            length = len(title)+2
             hash_symbol_title = Style.BRIGHT + Fore.WHITE + "#" * length + Style.RESET_ALL
             hash_symbol_bot = Style.BRIGHT + Fore.WHITE + "#" * (mult_hash * mult) + hash_symbol_title + Style.RESET_ALL
 
             if days_passed is not None:
-                print(f"{hash_symbol_top} {titles} {hash_symbol_top}")
+                print(f"{hash_symbol_top} {title} {hash_symbol_top}")
                 print(f"You have chosen a date: {Fore.GREEN}{start_date_str}{Fore.RESET}")
                 print(f"Next payment date {Fore.RED}{result_date}{Fore.RESET} , "
                       f"{Fore.RED}{days_passed}{Fore.RESET} days have passed!")
+                if days_remaining is not None and 0 <= days_remaining <= 5:
+                    print(f"Until the date {Fore.RED}{result_date}{Fore.RESET} "
+                          f"left {Fore.RED}{days_remaining}{Fore.RESET} days!!!")
+                elif days_remaining is not None and days_remaining < 0:
+                    print(f"After the date {Fore.RED}{result_date}{Fore.RESET} "
+                          f"has passed {Fore.RED}{abs(days_remaining)}{Fore.RESET} days!!!")
+                elif days_remaining is None:
+                    print(f"{Fore.RED}Error, days_remaining: {days_remaining}{Fore.RESET}")
                 print(f"Don't forget to pay, otherwise you'll become poorer")
                 print(f"{hash_symbol_bot}\n")
