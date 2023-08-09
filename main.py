@@ -85,5 +85,7 @@ if __name__ == '__main__':
                           f"has passed {Fore.RED}{abs(days_remaining)}{Fore.RESET} days!!!")
                 elif days_remaining is None:
                     print(f"{Fore.RED}Error, days_remaining: {days_remaining}{Fore.RESET}")
+                else:
+                    print(f"More than 5 days left before the date")
                 print(f"Don't forget to pay, otherwise you'll become poorer")
                 print(f"{hash_symbol_bot}\n")
