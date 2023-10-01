@@ -16,6 +16,7 @@ This can be done with this script to find out the exact date.
 ###################### phone 2 ######################
 You have chosen a date: 2023-07-09
 Next payment date 2023-10-26 , 27 days have passed!
+More than 5 days left before the date
 Don't forget to pay, otherwise you'll become poorer
 #####################################################
 
@@ -23,6 +24,13 @@ Don't forget to pay, otherwise you'll become poorer
 You have chosen a date: 2023-07-20
 Next payment date 2023-08-14 , 16 days have passed!
 After the date 2023-08-14 has passed 1 days!!!
+Don't forget to pay, otherwise you'll become poorer
+###################################################
+
+###################### payment of taxes ######################
+You have chosen a date: 2023-07-09
+Next payment date 2023-10-26 , 84 days have passed!
+Until the date 2023-10-26 left 4 days!!!
 Don't forget to pay, otherwise you'll become poorer
 ###################################################
 ```
