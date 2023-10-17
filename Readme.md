@@ -3,10 +3,12 @@
 ## Descriptions 
 Sometimes you need to calculate the number of days to pay for a particular service. 
 This can be done with this script to find out the exact date.
+You can also set negative numbers from the current date.
 
 ## HOW TO USE
-1. Set the dates in the list `start_dates` from which you want to calculate the date for payment
-2. Set numbers of days in the list `num_days_list`
+1. Set the dates in the list `start_dates` from which you want to calculate the date for payment 
+in the file `date_calculation_example.py`
+2. Set numbers of days in the list `num_days_list` in the file `date_calculation_example.py`
 3. Click to RUN button
 
 [not relevant] P.S.: Also, you can uncomment the lines and enter `start_date_str` and `num_days` from the console

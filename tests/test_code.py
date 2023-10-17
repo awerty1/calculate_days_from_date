@@ -2,7 +2,7 @@ import unittest
 
 from datetime import date, timedelta
 
-from main import count_days, add_days
+from date_utils import count_days, add_days
 
 
 class TestCountDays(unittest.TestCase):
@@ -27,7 +27,8 @@ class TestAddDays(unittest.TestCase):
         start_dates = ["2023-07-30"]  # Wrap start_dates in a list
         num_days_list = 90
         expected_result = (date.fromisoformat(start_dates[0]) + timedelta(days=num_days_list)).isoformat()
-        self.assertEqual(add_days(start_dates, [num_days_list]), [expected_result])  # Wrap num_days_list and expected_result in lists
+        self.assertEqual(add_days(start_dates, [num_days_list]),
+                         [expected_result])  # Wrap num_days_list and expected_result in lists
 
     def test_add_negative_days(self):
         # Test adding negative number of days
@@ -47,13 +48,39 @@ class TestAddDays(unittest.TestCase):
         # Test invalid start date format
         start_dates = "2023/07/30"
         num_days_list = 90
-        self.assertIsNone(add_days(start_dates, num_days_list))
+        self.assertIsNone(add_days(start_dates, [num_days_list]))
 
     def test_exceeding_date_value(self):
         # Test result exceeding maximum or minimum date value
         start_dates = "9999-12-31"
         num_days_list = 1
-        self.assertIsNone(add_days(start_dates, num_days_list))
+        self.assertIsNone(add_days(start_dates, [num_days_list]))
+
+
+class MainTests(unittest.TestCase):
+
+    # Test for adding several positive days:
+    def test_add_multiple_positive_days(self):
+        start_dates = ["2023-07-30", "2023-08-15", "2023-09-01"]  # Multiple start dates
+        num_days_list = [30, 45, 60]  # Multiple num days
+        expected_results = [(date.fromisoformat(start_dates[i]) + timedelta(days=num_days_list[i])).isoformat() for i in
+                            range(len(start_dates))]
+        self.assertEqual(add_days(start_dates, num_days_list), expected_results)
+
+    # Test for adding negative days to multiple dates:
+    def test_add_negative_days_multiple_dates(self):
+        start_dates = ["2023-07-30", "2023-08-15", "2023-09-01"]  # Multiple start dates
+        num_days_list = [-10, -20, -30]  # Multiple num days
+        expected_results = [(date.fromisoformat(start_dates[i]) + timedelta(days=num_days_list[i])).isoformat() for i in
+                            range(len(start_dates))]
+        self.assertEqual(add_days(start_dates, num_days_list), expected_results)
+
+    # Test for adding days to null dates:
+    def test_add_days_to_empty_dates(self):
+        start_dates = []  # Empty start dates list
+        num_days_list = [10, 20, 30]  # Multiple num days
+        expected_results = []  # Expecting an empty list as result
+        self.assertEqual(add_days(start_dates, num_days_list), expected_results)
 
 
 if __name__ == '__main__':
