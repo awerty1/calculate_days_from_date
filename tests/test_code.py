@@ -1,8 +1,10 @@
 import unittest
+from unittest.mock import patch
 
 from datetime import date, timedelta
 
 from date_utils import count_days, add_days
+from input_utils import input_start_date, input_num_days, input_titles, input_manual
 
 
 class TestCountDays(unittest.TestCase):
@@ -81,6 +83,39 @@ class MainTests(unittest.TestCase):
         num_days_list = [10, 20, 30]  # Multiple num days
         expected_results = []  # Expecting an empty list as result
         self.assertEqual(add_days(start_dates, num_days_list), expected_results)
+
+
+class TestInputFunctions(unittest.TestCase):
+    def test_input_start_date(self):
+        with patch('builtins.input', return_value='2022-01-01, 2022-02-01, 2022-03-01'):
+            start_dates = input_start_date()
+            expected_dates = ['2022-01-01', '2022-02-01', '2022-03-01']
+            self.assertEqual(start_dates, expected_dates)
+
+    def test_input_num_days(self):
+        with patch('builtins.input', return_value='5, 10, 15'):
+            num_days = input_num_days()
+            expected_days = [5, 10, 15]
+            self.assertEqual(num_days, expected_days)
+
+    def test_input_titles(self):
+        with patch('builtins.input', return_value='Title 1, Title 2, Title 3'):
+            titles = input_titles()
+            expected_titles = ['Title 1', 'Title 2', 'Title 3']
+            self.assertEqual(titles, expected_titles)
+
+    def test_input_manual(self):
+        with patch('input_utils.input_start_date', return_value=['2022-01-01']):
+            with patch('input_utils.input_num_days', return_value=[5]):
+                with patch('input_utils.input_titles', return_value=['Title 1']):
+                    start_dates, num_days, titles = input_manual()
+                    expected_start_dates = ['2022-01-01']
+                    expected_num_days = [5]
+                    expected_titles = ['Title 1']
+
+                    self.assertEqual(start_dates, expected_start_dates)
+                    self.assertEqual(num_days, expected_num_days)
+                    self.assertEqual(titles, expected_titles)
 
 
 if __name__ == '__main__':
