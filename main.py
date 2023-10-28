@@ -56,14 +56,12 @@ def main():
 
                 if days_passed is not None:
                     print(f"\n{hash_symbol_top} {title} {hash_symbol_top}")
-                    # print(f"You have chosen a date: {Fore.GREEN}{start_date_str}{Fore.RESET}")
                     print(f"You selected {Fore.RED}{num_day}{Fore.RESET} "
                           f"days from the date {Fore.GREEN}{start_date_str}{Fore.RESET}")
                     print(f"Next payment date {Fore.RED}{result_date}{Fore.RESET} , "
                           f"{Fore.RED}{days_passed}{Fore.RESET} days have passed!")
                     # Write to file
                     output_file.write(f"\n{hash_symbol_top_to_file} {title} {hash_symbol_top_to_file}\n")
-                    # output_file.write(f"You have chosen a date: {start_date_str}\n")
                     output_file.write(f"You selected {num_day} days from the date {start_date_str}\n")
                     output_file.write(f"Next payment date {result_date}, {days_passed} days have passed!\n")
                     if days_remaining is not None and 0 <= days_remaining <= 5:
