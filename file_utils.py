@@ -4,8 +4,8 @@ from datetime import date
 
 def create_output_filename():
     """
-    Создает уникальное имя файла для вывода, основываясь на текущей дате.
-    Если файл уже существует, добавляет суффикс, чтобы создать уникальное имя файла.
+    Create a unique output filename based on the current date.
+    If the file already exists, append a suffix to create a unique filename.
     """
     # Get the current date
     current_date = date.today()
