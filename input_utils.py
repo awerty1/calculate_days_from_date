@@ -59,6 +59,6 @@ def input_manual():
         print(
             f"{Fore.RED}Invalid input, start_dates:{Fore.RESET}{Fore.BLUE}{len(start_dates)}{Fore.RESET}"
             f"{Fore.RED}, num_days:{Fore.RESET}{Fore.BLUE}{len(num_days)}{Fore.RESET}"
-            f"{Fore.RED}, titles:{Fore.RESET}{Fore.BLUE}{len(titles)}.{Fore.RESET}"
+            f"{Fore.RED}, titles:{Fore.RESET}{Fore.BLUE}{len(titles)}. {Fore.RESET}"
             f"{Fore.RED}Number of elements in each list must be equal.{Fore.RESET}")
         return input_manual()  # Recursively call the function to prompt for valid input
