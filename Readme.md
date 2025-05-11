@@ -39,11 +39,12 @@ Don't forget to pay, otherwise you'll become poorer
 ###################################################
 ```
 ## Input manually
+**Note:** Multiple comma-separated`(,)` values are allowed. All lists must have equal length!
 ```
 Do you want to input manually (M) or from a file (F)? M
-Enter a list of start dates (YYYY-MM-DD), separated by a comma(,): 2023-10-01,2023-10-02
-Enter a list of numbers of days, separated by a comma(,): 3,19,-5
-Enter a list of titles, separated by a comma(,): test1,test2
+Enter a list of start dates (YYYY-MM-DD), separated by a comma(,): 2023-10-01, 2023-10-02
+Enter a list of numbers of days, separated by a comma(,): 3, 19, -5
+Enter a list of titles, separated by a comma(,): test1, test2
 
 ###################### test1 ######################
 You selected 3 days from the date 2023-10-01
@@ -62,3 +63,15 @@ Don't forget to pay, otherwise you'll become poorer
 ```
 # TESTS
 The test file is located in the `test` folder. It is called `test_code.py`
+
+
+# TODO BLOCK
+1. Email msgs
+2. Add profile to binary file(.spec pyinstaller)
+3. Calculate days until date
+4. Add msg file for msg in the main
+5. Add a description to each event date 
+6. Changa date_Calculation_example.py to json
+7. Added to file frm manual input (need thinking)
+8. Added logging
+9. Optimize and refactoring main.py file (double msg + output_file.write)
