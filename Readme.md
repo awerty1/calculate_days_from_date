@@ -67,11 +67,11 @@ The test file is located in the `test` folder. It is called `test_code.py`
 
 # TODO BLOCK
 1. Email msgs
-2. Add profile to binary file(.spec pyinstaller)
+2. Add profile to binary file(.spec pyinstaller) +
 3. Calculate days until date
-4. Add msg file for msg in the main
-5. Add a description to each event date 
-6. Changa date_Calculation_example.py to json
+4. Add msg file for msg in the main +
+5. Add a description to each event date
+6. Change "date_calculation_example.py" to "date_calculation_example.json"
 7. Added to file frm manual input (need thinking)
 8. Added logging
-9. Optimize and refactoring main.py file (double msg + output_file.write)
+9. Optimize and refactoring main.py file (double msg + output_file.write) +
