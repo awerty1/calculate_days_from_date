@@ -2,28 +2,6 @@ from colorama import Fore, Style
 
 """ File for functions with MSGs frm main.py """
 
-# sep_gl = "="
-# sep_m = "-"
-# newline = "\n"
-# sep_count_gl = 68
-# sep_count_m = 48
-#
-# def get_manual_input_warning():
-#     return (
-#         f"{Fore.YELLOW}{newline}{sep_gl * sep_count_gl}{newline}"
-#         f" IMPORTANT: Manual input data WILL NOT be saved to the source file!{newline}"
-#         f" Data will only be written to a separate report file.{newline}"
-#         f"{sep_gl * sep_count_gl}{newline}{Style.RESET_ALL}"
-#     )
-#
-# def get_manual_mode_notice():
-#     return (
-#         f"{Fore.YELLOW}{newline}{sep_m * sep_count_m}{newline}"
-#         f" Notice: Manual input mode selected.{newline}"
-#         f" Results will only be saved to the report file.{newline}"
-#         f" For permanent data storage, use file mode (F).{newline}"
-#         f"{sep_m * sep_count_m}{newline}{Style.RESET_ALL}"
-#     )
 #TODO add tests
 
 class MessageFormatter:
@@ -34,6 +12,27 @@ class MessageFormatter:
         self.newline = "\n"
         self.sep_count_gl = 68
         self.sep_count_m = 48
+        # Set up hash symbols
+        self.mult_hash = 22
+        self.mult = 2
+
+    def create_hash_symbols(self, title):
+        """Generates all hash symbols for formatting"""
+        length = len(title) + self.mult
+        style_br_fore_wt = Style.BRIGHT + Fore.WHITE + "#"
+        return {
+            'console': {
+                'top': style_br_fore_wt * self.mult_hash + Style.RESET_ALL,
+                'title': style_br_fore_wt * length + Style.RESET_ALL,
+                'bottom': style_br_fore_wt * (self.mult_hash * self.mult)
+                          + ("#" * length) + Style.RESET_ALL
+            },
+            'file': {
+                'top': "#" * self.mult_hash,
+                'title': "#" * length,
+                'bottom': "#" * (self.mult_hash * self.mult) + ("#" * length)
+            }
+        }
 
     def manual_input_warning(self):
         """Warning about manual data entry"""
@@ -75,10 +74,50 @@ class MessageFormatter:
             f"{Fore.RED}{days_passed}{Fore.RESET} days have passed!"
         )
 
-    def payment_reminder(self):
+    def event_datails_file(self, num_day, start_date_str, result_date, days_passed):
+        """Event details 4 file"""
+        return (
+            f"You selected {num_day} days from the date {start_date_str}{self.newline}"
+            f"Next payment date {result_date}, {days_passed} days have passed!{self.newline}"
+        )
+
+    def payment_reminder(self, new_line = None):
         """Payment reminder"""
-        return "Don't forget to pay, otherwise you'll become poorer"
+        dont_forget_msg = f"Don't forget to pay, otherwise you'll become poorer"
+        if new_line == '\n':
+            return dont_forget_msg + f"{self.newline}"
+        return dont_forget_msg
 
     def event_footer(self, hash_symbol_bot):
         """Event Footer"""
         return f"{hash_symbol_bot}{self.newline}"
+
+    def days_remaining_soon(self, result_date, days_remaining):
+        """Message when 0-5 days remain"""
+        msg = (
+            f"Until the date {Fore.RED}{result_date}{Fore.RESET} "
+            f"left {Fore.RED}{days_remaining}{Fore.RESET} days!!!"
+        )
+        file_msg = f"Until the date {result_date} left {days_remaining} days!!!"
+        return msg, file_msg
+
+    def days_passed(self, result_date, days_passed):
+        """Message when the date has already passed"""
+        msg = (
+            f"After the date {Fore.RED}{result_date}{Fore.RESET} "
+            f"has passed {Fore.RED}{abs(days_passed)}{Fore.RESET} days!!!"
+        )
+        file_msg = f"After the date {result_date} has passed {abs(days_passed)} days!!!"
+        return msg, file_msg
+
+    def days_remaining_long(self):
+        """Message when more than 5 days remain"""
+        msg = "More than 5 days left before the date"
+        file_msg = msg  # 4 file same msg
+        return msg, file_msg
+
+    def days_remaining_error(self, days_remaining):
+        """Error message in calculations"""
+        msg = f"{Fore.RED}Error, days_remaining: {Fore.BLUE}{days_remaining}{Fore.RESET}"
+        file_msg = f"Error, days_remaining: {days_remaining}"
+        return msg, file_msg
