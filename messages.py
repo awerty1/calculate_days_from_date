@@ -17,20 +17,20 @@ class MessageFormatter:
         self.mult = 2
 
     def create_hash_symbols(self, title):
-        """Generates all hash symbols for formatting"""
-        length = len(title) + self.mult
+        """Generates all hash symbols for formatting with dynamic length"""
+        title_length = len(title) + self.mult
         style_br_fore_wt = Style.BRIGHT + Fore.WHITE + "#"
         return {
             'console': {
                 'top': style_br_fore_wt * self.mult_hash + Style.RESET_ALL,
-                'title': style_br_fore_wt * length + Style.RESET_ALL,
+                'title': style_br_fore_wt * title_length + Style.RESET_ALL,
                 'bottom': style_br_fore_wt * (self.mult_hash * self.mult)
-                          + ("#" * length) + Style.RESET_ALL
+                          + ("#" * title_length) + Style.RESET_ALL
             },
             'file': {
                 'top': "#" * self.mult_hash,
-                'title': "#" * length,
-                'bottom': "#" * (self.mult_hash * self.mult) + ("#" * length)
+                'title': "#" * title_length,
+                'bottom': "#" * (self.mult_hash * self.mult) + ("#" * title_length)
             }
         }
 
@@ -121,3 +121,7 @@ class MessageFormatter:
         msg = f"{Fore.RED}Error, days_remaining: {Fore.BLUE}{days_remaining}{Fore.RESET}"
         file_msg = f"Error, days_remaining: {days_remaining}"
         return msg, file_msg
+
+    def event_description(self, description):
+        """Format event description"""
+        return f"{Fore.YELLOW}Description: {Fore.RESET}{description}"

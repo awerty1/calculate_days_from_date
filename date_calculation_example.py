@@ -4,4 +4,10 @@ start_dates = ["2023-07-30", "2023-10-10", "2023-10-17"]
 # List with multiple values
 # num_days = 90
 num_days_list = [88, 88, -3]
-titles = ["internet", "phone", "neg test"]
+titles = ["internet", "phone", "negative test"]
+# Description of upcoming events
+descriptions = [
+    "Payment for home internet service",
+    "Mobile phone subscription fee",
+    "Negative COVID test requirement"
+]

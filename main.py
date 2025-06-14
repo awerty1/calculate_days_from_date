@@ -21,17 +21,19 @@ def main():
 
     if input_choice.upper() == "M":
         print(msg.manual_mode_notice())
-        start_dates, num_days_list, titles = input_manual()
+        start_dates, num_days_list, titles, descriptions = input_manual()
     elif input_choice.upper() == "F":
         # 4 github
         start_dates = date_calculation_example.start_dates
         num_days_list = date_calculation_example.num_days_list
         titles = date_calculation_example.titles
+        descriptions = date_calculation_example.descriptions
 
         # You can delete this code
         # start_dates = date_calculation.start_dates
         # num_days_list = date_calculation.num_days_list
         # titles = date_calculation.titles
+        # descriptions = date_calculation.descriptions
     else:
         print(msg.invalid_input(input_choice))
         exit()
@@ -44,17 +46,21 @@ def main():
         result_dates = date_utils.add_days(start_dates, num_days_list)
 
         if result_dates is not None:
-            for start_date_str, result_date, num_day, title in zip(start_dates, result_dates, num_days_list, titles):
+            for start_date_str, result_date, num_day, title, description in zip(
+                    start_dates, result_dates, num_days_list, titles, descriptions):
+
                 days_passed = date_utils.count_days(start_date_str)
                 days_remaining = num_day - days_passed
                 hash_symbols = msg.create_hash_symbols(title)
 
                 if days_passed is not None:
                     print(msg.event_header(title, hash_symbols['console']['top']))
+                    print(msg.event_description(description))  # new output 4 description
                     print(msg.event_details(num_day, start_date_str, result_date, days_passed))
 
                     # Write to file
                     output_file.write(f"\n{hash_symbols['file']['top']} {title} {hash_symbols['file']['top']}\n")
+                    output_file.write(f"Description: {description}\n")  # description to file
                     output_file.write(msg.event_datails_file(num_day, start_date_str, result_date, days_passed))
 
                     if days_remaining is not None and 0 <= days_remaining <= 5:
