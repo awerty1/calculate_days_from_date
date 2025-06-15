@@ -13,24 +13,24 @@ class MessageFormatter:
         self.sep_count_gl = 68
         self.sep_count_m = 48
         # Set up hash symbols
-        self.mult_hash = 22
+        self.mult_hash = 23
         self.mult = 2
 
     def create_hash_symbols(self, title):
-        """Generates all hash symbols for formatting"""
-        length = len(title) + self.mult
+        """Generates all hash symbols for formatting with dynamic length"""
+        title_length = len(title) + self.mult
         style_br_fore_wt = Style.BRIGHT + Fore.WHITE + "#"
         return {
             'console': {
                 'top': style_br_fore_wt * self.mult_hash + Style.RESET_ALL,
-                'title': style_br_fore_wt * length + Style.RESET_ALL,
+                'title': style_br_fore_wt * title_length + Style.RESET_ALL,
                 'bottom': style_br_fore_wt * (self.mult_hash * self.mult)
-                          + ("#" * length) + Style.RESET_ALL
+                          + ("#" * title_length) + Style.RESET_ALL
             },
             'file': {
                 'top': "#" * self.mult_hash,
-                'title': "#" * length,
-                'bottom': "#" * (self.mult_hash * self.mult) + ("#" * length)
+                'title': "#" * title_length,
+                'bottom': "#" * (self.mult_hash * self.mult) + ("#" * title_length)
             }
         }
 
@@ -121,3 +121,42 @@ class MessageFormatter:
         msg = f"{Fore.RED}Error, days_remaining: {Fore.BLUE}{days_remaining}{Fore.RESET}"
         file_msg = f"Error, days_remaining: {days_remaining}"
         return msg, file_msg
+
+    # OLD VERSION OF event_description
+    # def event_description(self, description):
+    #     """Format event description"""
+    #     return f"{Fore.YELLOW}Description: {Fore.RESET}{description}"
+
+    # NEW VERSION OF event_description
+    def event_description(self, description):
+        """Format event description with proper sentence splitting and indentation"""
+        if not description:
+            return f"{Fore.YELLOW}Description: NONE{Fore.RESET}"
+
+        # Split sentences while preserving original dots
+        sentences = []
+        current_sentence = []
+        for i, char in enumerate(description):
+            current_sentence.append(char)
+            # Check for sentence end (dot followed by space or end of string)
+            if char == '.' and (i == len(description) - 1 or description[i + 1] == ' '):
+                sentences.append(''.join(current_sentence).strip())
+                current_sentence = []
+
+        # Add any remaining text as last sentence
+        if current_sentence:
+            sentences.append(''.join(current_sentence).strip())
+
+        # Format with indentation
+        if not sentences:
+            return f"{Fore.YELLOW}Description: NONE{Fore.RESET}"
+
+        # First line
+        formatted_description = f"{Fore.YELLOW}Description: {Fore.RESET}{sentences[0]}"
+
+        # Subsequent lines with indentation
+        indent = " " * (len("Description: "))
+        for sentence in sentences[1:]:
+            formatted_description += f"\n{indent}{sentence}"
+
+        return formatted_description

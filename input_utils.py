@@ -51,14 +51,22 @@ def input_manual():
     start_dates = input_start_date()
     num_days = input_num_days()
     titles = input_titles()
+    descriptions = input_descriptions()
 
     # Validate input lengths
-    if len(start_dates) == len(num_days) == len(titles):
-        return start_dates, num_days, titles
+    if len(start_dates) == len(num_days) == len(titles) == len(descriptions):
+        return start_dates, num_days, titles, descriptions
     else:
         print(
             f"{Fore.RED}Invalid input, start_dates:{Fore.RESET}{Fore.BLUE}{len(start_dates)}{Fore.RESET}"
             f"{Fore.RED}, num_days:{Fore.RESET}{Fore.BLUE}{len(num_days)}{Fore.RESET}"
             f"{Fore.RED}, titles:{Fore.RESET}{Fore.BLUE}{len(titles)}. {Fore.RESET}"
+            f"{Fore.RED}, descriptions:{Fore.RESET}{Fore.BLUE}{len(descriptions)}. {Fore.RESET}"
             f"{Fore.RED}Number of elements in each list must be equal.{Fore.RESET}")
         return input_manual()  # Recursively call the function to prompt for valid input
+
+
+def input_descriptions():
+    descriptions_input = input("Enter a list of descriptions, separated by a comma(,): ")
+    descriptions = [desc.strip() for desc in descriptions_input.split(",")]
+    return descriptions
