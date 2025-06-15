@@ -70,7 +70,7 @@ The test file is located in the `test` folder. It is called `test_code.py`
 2. Add profile to binary file(.spec pyinstaller) +
 3. Calculate days until date
 4. Add msg file for msg in the main +
-5. Add a description to each event date
+5. Add a description to each event date +
 6. Change "date_calculation_example.py" to "date_calculation_example.json"
 7. Added to file frm manual input (need thinking)
 8. Added logging
