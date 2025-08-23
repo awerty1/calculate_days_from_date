@@ -42,7 +42,7 @@ def main():
     output_filename = file_utils.create_output_filename()
 
     # Open the file for writing
-    with open(output_filename, 'w') as output_file:
+    with open(output_filename, 'w', encoding='utf-8') as output_file:
         result_dates = date_utils.add_days(start_dates, num_days_list)
 
         if result_dates is not None:
