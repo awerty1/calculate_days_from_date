@@ -15,13 +15,24 @@ def main():
 
     # Check if the user wants to input manually or from a file
     input_choice = ""
-    while input_choice.upper() not in ["M", "F"]:
+    while input_choice.upper() not in ["M", "F", "Q"]:
         print(msg.manual_input_warning())
         input_choice = input(msg.mode_selection_prompt())
+
+    # Check for quit
+    if input_choice.upper() == "Q":
+        print(f"{Fore.YELLOW}Exiting program...{Fore.RESET}")
+        return
 
     if input_choice.upper() == "M":
         print(msg.manual_mode_notice())
         start_dates, num_days_list, titles, descriptions = input_manual()
+
+        # Check for quit
+        if start_dates is None:
+            print(f"{Fore.YELLOW}Exiting program...{Fore.RESET}")
+            return
+
     elif input_choice.upper() == "F":
         # 4 github
         start_dates = date_calculation_example.start_dates
@@ -36,7 +47,7 @@ def main():
         # descriptions = date_calculation.descriptions
     else:
         print(msg.invalid_input(input_choice))
-        exit()
+        return
 
     # Create the output filename
     output_filename = file_utils.create_output_filename()

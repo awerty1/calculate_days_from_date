@@ -92,11 +92,26 @@ class TestInputFunctions(unittest.TestCase):
             expected_dates = ['2022-01-01', '2022-02-01', '2022-03-01']
             self.assertEqual(start_dates, expected_dates)
 
+    def test_input_start_date_quit(self):
+        with patch('builtins.input', return_value='Q'):
+            start_dates = input_start_date()
+            self.assertIsNone(start_dates)
+
+    def test_input_start_date_quit_lowercase(self):
+        with patch('builtins.input', return_value='q'):
+            start_dates = input_start_date()
+            self.assertIsNone(start_dates)
+
     def test_input_num_days(self):
         with patch('builtins.input', return_value='5, 10, 15'):
             num_days = input_num_days()
             expected_days = [5, 10, 15]
             self.assertEqual(num_days, expected_days)
+
+    def test_input_num_days_quit(self):
+        with patch('builtins.input', return_value='Q'):
+            num_days = input_num_days()
+            self.assertIsNone(num_days)
 
     def test_input_titles(self):
         with patch('builtins.input', return_value='Title 1, Title 2, Title 3'):
@@ -104,10 +119,20 @@ class TestInputFunctions(unittest.TestCase):
             expected_titles = ['Title 1', 'Title 2', 'Title 3']
             self.assertEqual(titles, expected_titles)
 
+    def test_input_titles_quit(self):
+        with patch('builtins.input', return_value='Q'):
+            titles = input_titles()
+            self.assertIsNone(titles)
+
     def test_input_descriptions_valid(self):
         with patch('builtins.input', return_value='Desc 1, Desc 2, Desc 3'):
             descriptions = input_descriptions()
             self.assertEqual(descriptions, ['Desc 1', 'Desc 2', 'Desc 3'])
+
+    def test_input_descriptions_quit(self):
+        with patch('builtins.input', return_value='Q'):
+            descriptions = input_descriptions()
+            self.assertIsNone(descriptions)
 
     def test_input_manual(self):
         with patch('input_utils.input_start_date', return_value=['2022-01-01']):
@@ -124,6 +149,44 @@ class TestInputFunctions(unittest.TestCase):
                         self.assertEqual(num_days, expected_num_days)
                         self.assertEqual(titles, expected_titles)
                         self.assertEqual(descriptions, expected_description)
+
+    def test_input_manual_quit_at_start_date(self):
+        with patch('input_utils.input_start_date', return_value=None):
+            start_dates, num_days, titles, descriptions = input_manual()
+            self.assertIsNone(start_dates)
+            self.assertIsNone(num_days)
+            self.assertIsNone(titles)
+            self.assertIsNone(descriptions)
+
+    def test_input_manual_quit_at_num_days(self):
+        with patch('input_utils.input_start_date', return_value=['2022-01-01']):
+            with patch('input_utils.input_num_days', return_value=None):
+                start_dates, num_days, titles, descriptions = input_manual()
+                self.assertIsNone(start_dates)
+                self.assertIsNone(num_days)
+                self.assertIsNone(titles)
+                self.assertIsNone(descriptions)
+
+    def test_input_manual_quit_at_titles(self):
+        with patch('input_utils.input_start_date', return_value=['2022-01-01']):
+            with patch('input_utils.input_num_days', return_value=[5]):
+                with patch('input_utils.input_titles', return_value=None):
+                    start_dates, num_days, titles, descriptions = input_manual()
+                    self.assertIsNone(start_dates)
+                    self.assertIsNone(num_days)
+                    self.assertIsNone(titles)
+                    self.assertIsNone(descriptions)
+
+    def test_input_manual_quit_at_descriptions(self):
+        with patch('input_utils.input_start_date', return_value=['2022-01-01']):
+            with patch('input_utils.input_num_days', return_value=[5]):
+                with patch('input_utils.input_titles', return_value=['Title 1']):
+                    with patch('input_utils.input_descriptions', return_value=None):
+                        start_dates, num_days, titles, descriptions = input_manual()
+                        self.assertIsNone(start_dates)
+                        self.assertIsNone(num_days)
+                        self.assertIsNone(titles)
+                        self.assertIsNone(descriptions)
 
 
 if __name__ == '__main__':

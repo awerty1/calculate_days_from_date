@@ -59,7 +59,7 @@ class MessageFormatter:
 
     def mode_selection_prompt(self):
         """Mode selection message"""
-        return "Do you want to input manually (M) or from a file (F)? "
+        return "Do you want to input manually (M) or from a file (F)? (or 'Q' to quit): "
 
     def event_header(self, title, hash_symbol_top):
         """Event Title"""
