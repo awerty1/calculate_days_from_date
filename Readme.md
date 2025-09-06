@@ -16,50 +16,81 @@ in the file `date_calculation_example.py`
 # Program example
 ## Input from file
 ```
-Do you want to input manually (M) or from a file (F)? F
-###################### phone 2 ######################
-You have chosen a date: 2023-07-09
-Next payment date 2023-10-26 , 27 days have passed!
+====================================================================
+ IMPORTANT: Manual input data WILL NOT be saved to the source file!
+ Data will only be written to a separate report file.
+====================================================================
+
+Do you want to input manually (M) or from a file (F)? (or 'Q' to quit): F
+
+####################### internet #######################
+Description: Payment for home internet service
+You selected 88 days from the date 2025-07-30
+Next payment date 2025-10-26 , 38 days have passed!
 More than 5 days left before the date
+Don't forget to pay, otherwise you'll become poorer
+########################################################
+
+
+####################### phone #######################
+Description: Mobile phone subscription fee
+You selected 3 days from the date 2025-09-03
+Next payment date 2025-09-06 , 3 days have passed!
+Until the date 2025-09-06 left 0 days!!!
 Don't forget to pay, otherwise you'll become poorer
 #####################################################
 
-###################### court ######################
-You have chosen a date: 2023-07-20
-Next payment date 2023-08-14 , 16 days have passed!
-After the date 2023-08-14 has passed 1 days!!!
-Don't forget to pay, otherwise you'll become poorer
-###################################################
 
-###################### payment of taxes ######################
-You have chosen a date: 2023-07-09
-Next payment date 2023-10-26 , 84 days have passed!
-Until the date 2023-10-26 left 4 days!!!
+####################### payment of taxes #######################
+Description: Payment of taxes for 2025
+You selected 85 days from the date 2025-06-09
+Next payment date 2025-09-02 , 89 days have passed!
+After the date 2025-09-02 has passed 4 days!!!
 Don't forget to pay, otherwise you'll become poorer
-###################################################
+################################################################
+
+Press "Enter" for exit...
 ```
 ## Input manually
 **Note:** Multiple comma-separated`(,)` values are allowed. All lists must have equal length!
 ```
-Do you want to input manually (M) or from a file (F)? M
-Enter a list of start dates (YYYY-MM-DD), separated by a comma(,): 2023-10-01, 2023-10-02
-Enter a list of numbers of days, separated by a comma(,): 3, 19, -5
-Enter a list of titles, separated by a comma(,): test1, test2
+====================================================================
+ IMPORTANT: Manual input data WILL NOT be saved to the source file!
+ Data will only be written to a separate report file.
+====================================================================
 
-###################### test1 ######################
-You selected 3 days from the date 2023-10-01
-Next payment date 2023-10-04 , 27 days have passed!
-After the date 2023-10-04 has passed 24 days!!!
+Do you want to input manually (M) or from a file (F)? (or 'Q' to quit): M
+
+------------------------------------------------
+ Notice: Manual input mode selected.
+ Results will only be saved to the report file.
+ For permanent data storage, use file mode (F).
+------------------------------------------------
+
+Enter 'Q' at any time to quit.
+Enter a list of start dates (YYYY-MM-DD), separated by a comma(,) (or 'Q' to quit): 2025-10-01, 2025-10-02
+Enter a list of numbers of days, separated by a comma(,) (or 'Q' to quit): 3, 19
+Enter a list of titles, separated by a comma(,) (or 'Q' to quit): test1, test2
+Enter a list of descriptions, separated by a comma(,) (or 'Q' to quit): gfdgdf 1, gfdgdf 2
+
+####################### test1 #######################
+Description: gfdgdf 1
+You selected 3 days from the date 2025-10-01
+Next payment date 2025-10-04 , -25 days have passed!
+More than 5 days left before the date
 Don't forget to pay, otherwise you'll become poorer
-###################################################
+#####################################################
 
 
-###################### test2 ######################
-You selected 19 days from the date 2023-10-02
-Next payment date 2023-10-21 , 26 days have passed!
-After the date 2023-10-21 has passed 7 days!!!
+####################### test2 #######################
+Description: gfdgdf 2
+You selected 19 days from the date 2025-10-02
+Next payment date 2025-10-21 , -26 days have passed!
+More than 5 days left before the date
 Don't forget to pay, otherwise you'll become poorer
-###################################################
+#####################################################
+
+Press "Enter" for exit...
 ```
 # TESTS
 The test file is located in the `test` folder. It is called `test_code.py`
@@ -75,3 +106,4 @@ The test file is located in the `test` folder. It is called `test_code.py`
 7. Added to file frm manual input (need thinking)
 8. Added logging
 9. Optimize and refactoring main.py file (double msg + output_file.write) +
+10. Add quit on hotkey Q +
